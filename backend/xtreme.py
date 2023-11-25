@@ -1,5 +1,5 @@
 #IA - Projeto 4 - Jogo da Velha: Xtreme
-from jogo_da_velha import branco, token, verificaGanhador
+from jogo_da_velha import branco, token, vizualizarGanhador
 
 def movimentoIA(board, jogador):
     possibilidades = getPosicoes(board)
@@ -7,7 +7,7 @@ def movimentoIA(board, jogador):
     melhor_movimento = None
     for possibilidade in possibilidades:
         board[possibilidade[0]][possibilidade[1]] = token[jogador]
-        valor = minimax(board, jogador)
+        valor = xtreme(board, jogador)
         board[possibilidade[0]][possibilidade[1]] = branco
         if(melhor_valor is None):
             melhor_valor = valor
@@ -39,7 +39,7 @@ score = {
 }
 
 def xtreme(board, jogador):
-    ganhador = verificaGanhador(board)
+    ganhador = vizualizarGanhador(board)
     if(ganhador):
         return score[ganhador]
     jogador = (jogador + 1)%2
