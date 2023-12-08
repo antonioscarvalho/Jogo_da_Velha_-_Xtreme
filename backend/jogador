@@ -1,7 +1,0 @@
-class Jogador:
-    def __init__(self, simbolo):
-        self.simbolo = simbolo
-        
-    def simbolo(self, token):
-        token = ["X", "O"]
-    

@@ -1,5 +1,5 @@
 #Workbench - Projeto 4 - Jogo da Velha: Xtreme
-from jogo_da_velha import criarTabuleiro, realizarMovimento,  validarInput, printTabuleiro, vizualizarGanhador,  aprovarMovimento
+from jogo_da_velha import criarTabuleiro, realizarMovimento, validarInput, printTabuleiro, vizualizarGanhador, aprovarMovimento
 
 from xtreme import movimentoIA
 
@@ -33,7 +33,7 @@ Sua idade é {age}, certo?[S/N]
 
     while reset0 != 'N':
 
-        jogador = 0 # jogador 1
+        jogador = 0 
         board = criarTabuleiro()
         ganhador = vizualizarGanhador(board)
         while(not ganhador):
