@@ -1,3 +1,15 @@
+class Partida:
+    def __init__(self):
+        self.jogo = Jogo_da_Velha()
+
+    def iniciarPartida(self):
+        while True:
+            self.jogo.introducaoJogo()
+            resetar = input('Quer iniciar um novo jogo? (S para Sim, N para Não): ').strip().upper()
+            if resetar != 'S':
+                print('Obrigado por jogar!')
+                break
+
 class Jogo_da_Velha:
     def __init__(self):
         self.branco = " "
@@ -142,15 +154,15 @@ class Jogo_da_Velha:
         print('''
         Jogo da Velha: Xtreme
                            
-        Este jogo não é qualquer jogo da velha comum, pois nele você sempre perde ou empata, mas existem regras...
-        *Você nunca começa o jogo;
-        *É necessário que você seja sábio ao jogá-lo;
-        *A entidade Xtreme vai ser sua adversária sempre.
+Este jogo não é qualquer jogo da velha comum, pois nele você sempre perde ou empata, mas existem regras...
+*Você nunca começa o jogo;
+*É necessário que você seja sábio ao jogá-lo;
+*A entidade Xtreme vai ser sua adversária sempre.
 
-        Ainda quer jogar? HAHAHAHAHAHAH''')
+Ainda quer jogar? HAHAHAHAHAHAH''')
         print('''
-        Para começar o jogo, digite: "S"
-        Se não quer jogar, tchau, mas antes digite: "N"''')
+Para começar o jogo, digite: "S"
+Se não quer jogar, tchau, mas antes digite: "N"''')
         soun = str(input()).rstrip().lstrip().upper()
         print('''''')
 
@@ -167,44 +179,40 @@ Sua idade é {age}, certo?[S/N]
             reset0 = 0
             while reset0 != 'N':
                 jogador = 0
-                jogo = Jogo_da_Velha()
-                ganhador = jogo.visualizarGanhador()
+                self.jogo = Jogo_da_Velha()
+                ganhador = self.jogo.visualizarGanhador()
                 while not ganhador:
                     print('''
-                    Jogo começa:
+Jogo começa:
                     ''')
                     print("===================")
-                    jogo.printTabuleiro()
+                    self.jogo.printTabuleiro()
                     print("===================")
                     if jogador == 0:
-                        i, j = jogo.movimentoIA()
+                        i, j = self.jogo.movimentoIA()
                     else:
-                        i = jogo.validarInput("Digite a linha: ")
-                        j = jogo.validarInput("Digite a coluna: ")
+                        i = self.jogo.validarInput("Digite a linha: ")
+                        j = self.jogo.validarInput("Digite a coluna: ")
 
-                    if jogo.aprovarMovimento(i, j):
-                        jogo.realizarMovimento(i, j, jogador)
+                    if self.jogo.aprovarMovimento(i, j):
+                        self.jogo.realizarMovimento(i, j, jogador)
                         jogador = (jogador + 1) % 2
                     else:
                         print("A posição informada já está ocupada")
 
-                    ganhador = jogo.visualizarGanhador()
+                    ganhador = self.jogo.visualizarGanhador()
                     print("===================")
-                    jogo.printTabuleiro()
+                    self.jogo.printTabuleiro()
                     print("===================")
                     print(f'''
-                    Ganhador = {ganhador}
+Ganhador = {ganhador}
                     ''')
                     print("===================")
                     print('Quer jogar novamente?')
 
-                self.reset0 = str(input('Se sim, digite "S". Se não, digite "N": ')).rstrip().lstrip().upper()
-                if self.reset0 == 'N':
+                reset0 = str(input('Se sim, digite "S". Se não, digite "N": ')).rstrip().lstrip().upper()
+                if reset0 == 'N':
                     print('Seu jogo acaba aqui.')
-        else:
-            print('Seu jogo acaba aqui.')
 
-
-# Criar uma instância do jogo e iniciar
-jogo = Jogo_da_Velha()
-jogo.introducaoJogo()
+partida = Partida()
+partida.iniciarPartida()
