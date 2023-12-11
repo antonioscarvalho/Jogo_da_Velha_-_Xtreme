@@ -19,7 +19,6 @@ def carregar_banco_de_dados():
         print("Erro de decodificação JSON. O arquivo pode estar corrompido.")
         return []
 
-
 def adicionar_usuario(nome, senha):
     usuario = {"nome": nome, "senha": senha}
     banco_de_dados.append(usuario)
@@ -32,20 +31,57 @@ def exibir_usuarios():
         for i, usuario in enumerate(banco_de_dados, 1):
             print(f"{i}. Nome: {usuario['nome']}, Senha: {usuario['senha']}")
 
-def excluir_usuario(nome):
+def excluir_usuario(nome=None, senha=None):
+    if nome is None:
+        nome_usuario = input("Digite o nome do usuário a ser excluído: ")
+        senha_usuario = input("Digite a senha do usuário: ")
+    else:
+        nome_usuario = nome
+
     global banco_de_dados
-    banco_de_dados = [usuario for usuario in banco_de_dados if usuario["nome"] != nome]
-    print("Usuário excluído com sucesso!")
+    usuario_encontrado = next((usuario for usuario in banco_de_dados if usuario["nome"] == nome_usuario), None)
+
+    if usuario_encontrado:
+        if senha is None:
+            senha_usuario = input("Digite a senha do usuário para confirmar a exclusão: ")
+
+        if senha_usuario == usuario_encontrado["senha"]:
+            banco_de_dados = [usuario for usuario in banco_de_dados if usuario["nome"] != nome_usuario]
+            print("Usuário excluído com sucesso!")
+            salvar_banco_de_dados()
+        else:
+            print("Senha incorreta. A exclusão do usuário foi cancelada.")
+    else:
+        print("Usuário não encontrado.")
 
 def salvar_banco_de_dados():
     with open(db_path, "w") as arquivo_json:
         json.dump(banco_de_dados, arquivo_json)
 
-def validar_usuario(nome, senha):
+def validar_usuario(nome=None, senha=None):
+    if nome is None:
+        nome_usuario = input("Digite o nome do usuário: ")
+        senha_usuario = input("Digite a senha do usuário: ")
+    else:
+        nome_usuario = nome
+        senha_usuario = senha
+
     for usuario in banco_de_dados:
-        if usuario["nome"] == nome and usuario["senha"] == senha:
-            return True
-    return False
+        if usuario["nome"] == nome_usuario and usuario["senha"] == senha_usuario:
+            print("Usuário válido.")
+            return
+
+    print("Usuário inválido.")
+
+def cadastrar_usuario():
+    nome_usuario = input("Digite o nome do usuário: ")
+    senha_usuario = input("Digite a senha do usuário: ")
+    adicionar_usuario(nome_usuario, senha_usuario)
+    salvar_banco_de_dados()
+
+def mostrar_usuarios_cadastrados():
+    print("Usuários no banco de dados:")
+    exibir_usuarios()
 
 banco_de_dados = carregar_banco_de_dados()
 
@@ -60,24 +96,13 @@ while True:
     escolha = input("Digite o número da opção desejada: ")
 
     if escolha == "1":
-        nome_usuario = input("Digite o nome do usuário: ")
-        senha_usuario = input("Digite a senha do usuário: ")
-        adicionar_usuario(nome_usuario, senha_usuario)
-        salvar_banco_de_dados() 
+        cadastrar_usuario()
     elif escolha == "2":
-        print("Usuários no banco de dados:")
-        exibir_usuarios()
+        mostrar_usuarios_cadastrados()
     elif escolha == "3":
-        nome_usuario = input("Digite o nome do usuário: ")
-        senha_usuario = input("Digite a senha do usuário: ")
-        if validar_usuario(nome_usuario, senha_usuario):
-            print("Usuário válido.")
-        else:
-            print("Usuário inválido.")
+        validar_usuario()
     elif escolha == "4":
-        nome_usuario = input("Digite o nome do usuário a ser excluído: ")
-        excluir_usuario(nome_usuario)
-        salvar_banco_de_dados() 
+        excluir_usuario()
     elif escolha == "5":
         print("Saindo do programa.")
         break
