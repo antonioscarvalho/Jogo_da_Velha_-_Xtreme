@@ -12,7 +12,6 @@
     <h1 class="titulo">XTREME</h1>
     <h2 class="frase">HISTÓRICO DE PLACAR</h2>
 
-    <script src="script.js"></script>
 
 </body>
 

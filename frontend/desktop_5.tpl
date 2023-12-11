@@ -13,12 +13,7 @@
     <div id="board"></div>
     <a class="acesso" href="desktop_9.html">Visualizar histórico de placar</a>
 
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            renderBoard();
-        });
-    </script></body>
+</body>
 
 <footer>
     <p>&copy; 2023 Trabalho final FGA0158. Todos os direitos reservados.</p>

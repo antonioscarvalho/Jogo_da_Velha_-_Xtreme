@@ -10,8 +10,6 @@
 
 <body>
     <h1 class="titulo">XTREME</h1>
-
-    <script src="script.js"></script>
     
     <a class="acesso" href="desktop_9.html">Visualizar histórico de placar</a>
 </body>
