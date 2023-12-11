@@ -1,7 +1,9 @@
 # Banco de Dados - Projeto 4 - Jogo da Velha: Xtreme
-
 import os
 import json
+from bottle import Bottle, run, request, template
+
+app = Bottle()
 
 script_directory = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(script_directory, 'db.json')
@@ -60,18 +62,17 @@ def salvar_banco_de_dados():
 
 def validar_usuario(nome=None, senha=None):
     if nome is None:
-        nome_usuario = input("Digite o nome do usuário: ")
-        senha_usuario = input("Digite a senha do usuário: ")
+        nome_usuario = request.forms.get("usuario")
+        senha_usuario = request.forms.get("senha")
     else:
         nome_usuario = nome
         senha_usuario = senha
 
     for usuario in banco_de_dados:
         if usuario["nome"] == nome_usuario and usuario["senha"] == senha_usuario:
-            print("Usuário válido.")
-            return
+            return "Usuário válido."
 
-    print("Usuário inválido.")
+    return "Usuário inválido."
 
 def cadastrar_usuario():
     nome_usuario = input("Digite o nome do usuário: ")
@@ -83,28 +84,9 @@ def mostrar_usuarios_cadastrados():
     print("Usuários no banco de dados:")
     exibir_usuarios()
 
+@app.route('/desktop_2', method='POST')
+def desktop_2():
+    resultado_validacao = validar_usuario()
+    return template("desktop_2", resultado_validacao=resultado_validacao)
+
 banco_de_dados = carregar_banco_de_dados()
-
-while True:
-    print("\nMenu:")
-    print("1. Cadastrar usuário")
-    print("2. Mostrar usuários cadastrados")
-    print("3. Validar usuário")
-    print("4. Excluir usuário")
-    print("5. Sair")
-
-    escolha = input("Digite o número da opção desejada: ")
-
-    if escolha == "1":
-        cadastrar_usuario()
-    elif escolha == "2":
-        mostrar_usuarios_cadastrados()
-    elif escolha == "3":
-        validar_usuario()
-    elif escolha == "4":
-        excluir_usuario()
-    elif escolha == "5":
-        print("Saindo do programa.")
-        break
-    else:
-        print("Opção inválida. Tente novamente.")

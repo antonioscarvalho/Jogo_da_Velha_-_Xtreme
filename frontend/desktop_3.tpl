@@ -11,16 +11,14 @@
 <body>
     <h1 class="titulo">XTREME</h1>
     <h2 class="frase">BEM-VINDO AO DESAFIO!</h2>
-    <form>
+    <form action="/cadastrar_usuario" method="POST">
         <label for="usuario">Usuário:</label>
         <input type="text" id="usuario" name="usuario" required>
 
         <label for="senha">Senha:</label>
         <input type="password" id="senha" name="senha" required>
 
-        <a class="jogar" href="desktop_4.html">
-            <button>CADASTRAR</button>
-        </a>
+        <button type="submit">CADASTRAR</button>
     </form>
     <a class="acesso" href="desktop_2.html">Entrar</a>
 </body>
