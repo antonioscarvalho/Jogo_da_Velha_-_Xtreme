@@ -21,5 +21,3 @@
 </footer>
 
 </html>
-
-<!-- com função js mostrar o historico -->

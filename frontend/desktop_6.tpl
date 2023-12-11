@@ -21,5 +21,3 @@
 </footer>
 
 </html>
-
-<!-- mostrar a função js e mostrar um texto com o resultado -->

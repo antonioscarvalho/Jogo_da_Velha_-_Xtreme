@@ -25,5 +25,3 @@
 </footer>
 
 </html>
-
-<!-- arrumar o chamamento da função do js -->

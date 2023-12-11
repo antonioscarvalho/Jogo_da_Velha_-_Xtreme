@@ -30,5 +30,3 @@
 </footer>
 
 </html>
-
-<!-- arrumar a logica do formulario -->
