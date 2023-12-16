@@ -1,10 +1,11 @@
+#OPÇÃO DE CÓDIGO PARA JOGAR CONTRA ALGUÉM QUE ESTEJA COM VOCÊ
 class Partida:
     def __init__(self):
         self.jogo = Jogo_da_Velha()
 
     def iniciarPartida(self):
         while True:
-            self.jogo.introducaoJogo()
+            self.jogo.jogarcontra()
             resetar = input('Quer iniciar um novo jogo? (S para Sim, N para Não): ').strip().upper()
             if resetar != 'S':
                 print('Obrigado por jogar!')
@@ -148,24 +149,18 @@ class Jogo_da_Velha:
                     melhor_valor = valor
 
         return melhor_valor
-
-    def introducaoJogo(self):
+    def jogarcontra(self):
         ganhador = self.visualizarGanhador()
         jogador = 0
         self.jogo = Jogo_da_Velha()
         ganhador = self.jogo.visualizarGanhador()
-        while not ganhador:
-            print('''
-Jogo começa:
-                    ''')
+        while (not ganhador):
             print("===================")
             self.jogo.printTabuleiro()
             print("===================")
-            if jogador == 0:
-                i, j = self.jogo.movimentoIA()
-            else:
-                i = self.jogo.validarInput("Digite a linha: ")
-                j = self.jogo.validarInput("Digite a coluna: ")
+            i, j = self.jogo.movimentoIA()
+            i = self.jogo.validarInput("Digite a linha: ")
+            j = self.jogo.validarInput("Digite a coluna: ")
 
             if self.jogo.aprovarMovimento(i, j):
                 self.jogo.realizarMovimento(i, j, jogador)
@@ -178,8 +173,10 @@ Jogo começa:
             self.jogo.printTabuleiro()
             print("===================")
             print(f'''
-Ganhador = {ganhador}
-                ''')
+Resultado = {ganhador}
+                    ''')
             print("===================")
+            print('Quer jogar novamente?')
+
 partida = Partida()
 partida.iniciarPartida()
