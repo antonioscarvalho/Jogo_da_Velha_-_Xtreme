@@ -1,4 +1,4 @@
-#OPÇÃO DE CÓDIGO PARA JOGAR CONTRA ALGUÉM QUE ESTEJA COM VOCÊ
+#OPÇÃO DE CÓDIGO PARA JOGAR CONTRA ALGUÉM 
 class Partida:
     def __init__(self):
         self.jogo = Jogo_da_Velha()
