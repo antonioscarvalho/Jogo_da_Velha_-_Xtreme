@@ -155,9 +155,6 @@ class Jogo_da_Velha:
         self.jogo = Jogo_da_Velha()
         ganhador = self.jogo.visualizarGanhador()
         while not ganhador:
-            print('''
-Jogo começa:
-                    ''')
             print("===================")
             self.jogo.printTabuleiro()
             print("===================")
