@@ -1,8 +1,14 @@
 import bottle
+from bottle import template, request, redirect
 
-from database.db import validar_usuario, cadastrar_usuario, historico_partidas, Partida
+from backend.jogo_da_velha import Partida, Jogo_da_Velha
+from database.db import validar_usuario, cadastrar_usuario, historico_partidas
 
 app = bottle.Bottle()
+partida = Partida()
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 @app.route('/')
 def entrar():
@@ -51,20 +57,22 @@ def cadastrar_usuario_route():
     cadastrar_usuario(nome_usuario, senha_usuario)
     redirect('/desktop_4')
 
+#functions
+
 @app.route('/jogar', method='POST')
 def jogar_route():
-    partida = Partida()
+    global partida
     partida.iniciarPartida()
-    redirect('/desktop_5')
+    return template('frontend/desktop_5.tpl')
 
-@app.route('/resultado', method='POST')
+@app.route('/resultado', method='GET')
 def resultado_route():
     global historico_partidas
     if historico_partidas:
         resultado_ultima_partida = historico_partidas[-1]
     else:
         resultado_ultima_partida = "Nenhuma partida foi jogada ainda."
-    
+
     return template("resultado", resultado=resultado_ultima_partida)
 
 @app.route('/historico', method='POST')
@@ -73,4 +81,5 @@ def historico_route():
     return template("historico", historico=historico_partidas)
 
 if __name__ == '__main__':
-    run(app, host='localhost', port=8080, debug=True)
+    app.run(host='localhost', port=8080, debug=True)
+
