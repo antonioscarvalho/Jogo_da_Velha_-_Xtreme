@@ -10,20 +10,13 @@
 
 <body>
     <h1 class="titulo">XTREME</h1>
-    <div id="board"></div>
-    <a class="acesso" href="desktop_9.html">Visualizar histórico de placar</a>
+    <h2 class="frase">HISTÓRICO DE PLACAR</h2>
 
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            renderBoard();
-        });
-    </script></body>
+
+</body>
 
 <footer>
     <p>&copy; 2023 Trabalho final FGA0158. Todos os direitos reservados.</p>
 </footer>
 
 </html>
-
-<!-- arrumar o chamamento da função do js -->

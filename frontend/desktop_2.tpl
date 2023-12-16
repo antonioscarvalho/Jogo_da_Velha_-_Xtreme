@@ -11,17 +11,18 @@
 <body>
     <h1 class="titulo">XTREME</h1>
     <h2 class="frase">BEM-VINDO DE VOLTA AO DESAFIO!</h2>
-    <form id="loginForm">
+
+    <form id="loginForm" action="/validar_usuario" method="POST">
         <label for="usuario">Usuário:</label>
         <input type="text" id="usuario" name="usuario" required>
 
         <label for="senha">Senha:</label>
         <input type="password" id="senha" name="senha" required>
 
-        <script src="script.js"></script>
-        <button type="button" onclick="startGame()">ENTRAR</button>
+        <button type="submit">ENTRAR</button>
     </form>
-    <a class="acesso" href="desktop_3.html">Cadastrar</a>
+
+    <a class="acesso" href="desktop_3.tpl">Cadastrar</a>
 </body>
 
 <footer>
@@ -29,5 +30,3 @@
 </footer>
 
 </html>
-
-<!-- arrumar a logica do formulario -->

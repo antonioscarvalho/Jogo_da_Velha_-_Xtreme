@@ -10,10 +10,9 @@
 
 <body>
     <h1 class="titulo">XTREME</h1>
-
-    <script src="script.js"></script>
-    
+    <div id="board"></div>
     <a class="acesso" href="desktop_9.html">Visualizar histórico de placar</a>
+
 </body>
 
 <footer>
@@ -21,5 +20,3 @@
 </footer>
 
 </html>
-
-<!-- mostrar a função js e mostrar um texto com o resultado -->

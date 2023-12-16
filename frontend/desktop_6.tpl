@@ -10,10 +10,8 @@
 
 <body>
     <h1 class="titulo">XTREME</h1>
-    <h2 class="frase">HISTÓRICO DE PLACAR</h2>
-
-    <script src="script.js"></script>
-
+    
+    <a class="acesso" href="desktop_9.html">Visualizar histórico de placar</a>
 </body>
 
 <footer>
@@ -21,5 +19,3 @@
 </footer>
 
 </html>
-
-<!-- com função js mostrar o historico -->

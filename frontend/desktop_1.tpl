@@ -11,14 +11,14 @@
 <body>
     <h1 class="titulo">XTREME</h1>
     <div class="logo">
-        <img src="imagens/mão_superior.png" alt="Mão Superior">
+        <img src="frontend/imagens/mão_superior.png" alt="Mão Superior">
         <img src="imagens/jogo_completo.png" alt="Jogo Completo">
         <img src="imagens/mão_inferior.png" alt="Mão Inferior">
     </div>
-    <a class="jogar" href="desktop_4.html">
+    <a class="jogar" href="/validar_usuario"> <!-- Alterado para /validar_usuario -->
         <button>JOGAR</button>
     </a>
-    <a class="acesso" href="desktop_2.html">Entrar/Cadastrar</a>
+    <a class="acesso" href="/desktop_2">Entrar/Cadastrar</a> <!-- Mantido para desktop_2 -->
 </body>
 
 <footer>
