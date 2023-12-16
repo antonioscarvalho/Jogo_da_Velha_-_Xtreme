@@ -1,6 +1,6 @@
 # Jogo da Velha - Xtreme
 
-## Projeto Final de Orientação a Objetos-UnB
+## Projeto Final de Orientação a Objetos - UnB
 
 ## Descrição
 
