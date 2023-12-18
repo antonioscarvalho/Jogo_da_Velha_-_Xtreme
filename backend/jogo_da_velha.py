@@ -3,12 +3,15 @@ class Partida:
         self.jogo = Jogo_da_Velha()
 
     def iniciarPartida(self):
+        resultados = []
         while True:
-            self.jogo.introducaoJogo()
+            resultados.extend(self.jogo.introducaoJogo())
             resetar = input('Quer iniciar um novo jogo? (S para Sim, N para Não): ').strip().upper()
             if resetar != 'S':
                 print('Obrigado por jogar!')
                 break
+
+        return resultados
 
 class Jogo_da_Velha:
     def __init__(self):
@@ -153,7 +156,6 @@ class Jogo_da_Velha:
     def introducaoJogo(self):
         ganhador = self.visualizarGanhador()
         jogador = 0
-        self.jogo = Jogo_da_Velha()
         resultados = []
 
         while not ganhador:
@@ -194,6 +196,6 @@ class Jogo_da_Velha:
             ganhador = self.jogo.visualizarGanhador()
 
         return resultados
-    
+        
 #partida = Partida()
 #partida.iniciarPartida()
