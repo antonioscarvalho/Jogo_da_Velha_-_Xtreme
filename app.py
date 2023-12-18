@@ -10,31 +10,31 @@ historico_partidas = []
 
 @app.route('/')
 def index():
-    return template('frontend/desktop_1.tpl')
+    return template('frontend/index.tpl')
 
 
-@app.route('/desktop_2', method=['GET', 'POST'])
+@app.route('/entrar', method=['GET', 'POST'])
 def desktop_2():
     resultado_validacao = None
     if request.method == 'POST':
         resultado_validacao = validar_usuario(request.forms.get('usuario'), request.forms.get('senha'))
 
         if resultado_validacao == "Usuário válido.":
-            return redirect('/desktop_4')
+            return redirect('/jogar')
 
-    return template('desktop_2.html', resultado_validacao=resultado_validacao)
+    return template('frontend/entrar.tpl', resultado_validacao=resultado_validacao)
 
-@app.route('/desktop_3', method=['GET', 'POST'])
+@app.route('/cadastrar', method=['GET', 'POST'])
 def desktop_3():
     if request.method == 'POST':
         nome_usuario = request.forms.get('usuario')
         senha_usuario = request.forms.get('senha')
         cadastrar_usuario(nome_usuario, senha_usuario)
-        return redirect('/desktop_4')
+        return redirect('/jogar')
 
-    return template('desktop_3.html')
+    return template('frontend/cadastrar.tpl')
 
-@app.route('/desktop_4', method=['GET', 'POST'])
+@app.route('/jogar', method=['GET', 'POST'])
 def introducaoJogo_route():
     global partida
     if request.method == 'POST':
@@ -43,14 +43,30 @@ def introducaoJogo_route():
         j = int(request.forms.get('j'))
 
         resultados = partida.jogo.introducaoJogo(jogador, i, j)
-        return template("introducaoJogo.tpl", resultados=resultados)
+        return template("jogar.tpl", resultados=resultados)
 
-@app.route('/desktop_5')
+@app.route('/partida')
 def iniciarPartida_route():
     resultados = partida.iniciarPartida()
     return template("iniciarPartida.tpl", resultados=resultados)
 
-@app.route('/realizarMovimento', method=['POST'])
+@app.route('/partida/criarTabuleiro')
+def criarTabuleiro_route():
+    return template("criarTabuleiro", criarTabuleiro=criarTabuleiro)
+
+@app.route('/partida/printTabuleiro')
+def printTabuleiro_route():
+    return template("printTabuleiro", printTabuleiro=printTabuleiro)
+
+@app.route('/partida/validarInput')
+def validarInput_route():
+    return template("validarInput", validarInput=validarInput)
+
+@app.route('/partida/aprovarMovimento')
+def aprovarMovimento_route():
+    return template("aprovarMovimento", aprovarMovimento=aprovarMovimento)
+
+@app.route('/partida/realizarMovimento', method='POST')
 def realizarMovimento_route():
     i = int(request.forms.get('i'))
     j = int(request.forms.get('j'))
@@ -58,11 +74,22 @@ def realizarMovimento_route():
     partida.jogo.realizarMovimento(i, j, jogador)
     return template("realizarMovimento.tpl")
 
-@app.route('/desktop_6')
+@app.route('/partida/movimentoIA')
+def movimentoIA_route():
+    return template("movimentoIA", movimentoIA=movimentoIA)
+
+@app.route('/partida/getPosicoes')
+def getPosicoes_route():
+    return template("getPosicoes", getPosicoes=getPosicoes)
+
+@app.route('/partida/xtreme')
+def xtreme_route():
+    return template("xtreme", xtreme=xtreme)
+
+@app.route('/resultado')
 def visualizarGanhador_route():
     return template("visualizarGanhador.tpl", visualizarGanhador=visualizarGanhador)
 
-@app.route('/resultado')
 def resultado_route():
     global historico_partidas
     if historico_partidas:
