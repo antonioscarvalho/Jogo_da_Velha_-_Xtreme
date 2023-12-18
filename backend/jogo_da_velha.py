@@ -4,12 +4,16 @@ class Partida:
 
     def iniciarPartida(self):
         resultados = []
+        jogador = 0
+
         while True:
-            resultados.extend(self.jogo.introducaoJogo())
+            resultados.extend(self.jogo.introducaoJogo(jogador, 0, 0))
             resetar = input('Quer iniciar um novo jogo? (S para Sim, N para Não): ').strip().upper()
             if resetar != 'S':
                 print('Obrigado por jogar!')
                 break
+
+            jogador = (jogador + 1) % 2
 
         return resultados
 
@@ -34,9 +38,9 @@ class Jogo_da_Velha:
         return tabuleiro_html
 
 
-    def validarInput(self, mensagem):
+    def validarInput(self, n):
         try:
-            n = int(input(mensagem))
+            n = int(n)
             if 1 <= n <= 3:
                 return n - 1
             else:
@@ -49,7 +53,6 @@ class Jogo_da_Velha:
             return {"mensagem": "Movimento aprovado.", "movimento_aprovado": True}
         else:
             return {"mensagem": "A posição informada já está ocupada", "movimento_aprovado": False}
-
 
     def realizarMovimento(self, i, j, jogador):
         self.board[i][j] = self.token[jogador]
@@ -153,49 +156,43 @@ class Jogo_da_Velha:
 
         return melhor_valor
 
-    def introducaoJogo(self):
+    def introducaoJogo(self, jogador, i, j):
         ganhador = self.visualizarGanhador()
-        jogador = 0
         resultados = []
+        
+        tabuleiro_html = self.printTabuleiro()
+        resultados.append({
+            "tabuleiro": tabuleiro_html,
+            "ganhador": ganhador,
+        })
 
-        while not ganhador:
-            tabuleiro_html = self.printTabuleiro()
-            resultados.append({
-                "tabuleiro": tabuleiro_html,
-                "ganhador": ganhador,
-            })
+        if jogador == 0:
+            movimento_ia = self.jogo.movimentoIA()
+            i, j = movimento_ia["melhor_movimento"]
+        else:
+            i_input = self.validarInput(i)
+            j_input = self.validarInput(j)
 
-            if jogador == 0:
-                movimento_ia = self.jogo.movimentoIA()
-                i, j = movimento_ia["melhor_movimento"]
-            else:
-                i_input = self.jogo.validarInput("Digite a linha: ")
-                j_input = self.jogo.validarInput("Digite a coluna: ")
-
-                if i_input["input_valido"] and j_input["input_valido"]:
-                    i, j = i_input["input"], j_input["input"]
-                else:
-                    resultados.append({
-                        "mensagem": "Entrada inválida. Por favor, insira números válidos.",
-                        "ganhador": "EMPATE",
-                        "tabuleiro": self.printTabuleiro(),
-                    })
-                    return resultados
-
-            if self.jogo.aprovarMovimento(i, j)["movimento_aprovado"]:
-                self.jogo.realizarMovimento(i, j, jogador)
-                jogador = (jogador + 1) % 2
+            if i_input["input_valido"] and j_input["input_valido"]:
+                i, j = i_input["input"], j_input["input"]
             else:
                 resultados.append({
-                    "mensagem": "A posição informada já está ocupada",
+                    "mensagem": "Entrada inválida. Por favor, insira números válidos.",
                     "ganhador": "EMPATE",
                     "tabuleiro": self.printTabuleiro(),
                 })
                 return resultados
 
-            ganhador = self.jogo.visualizarGanhador()
+        if self.aprovarMovimento(i, j)["movimento_aprovado"]:
+            self.realizarMovimento(i, j, jogador)
+
+        ganhador = self.visualizarGanhador()
+        resultados.append({
+            "tabuleiro": self.printTabuleiro(),
+            "ganhador": ganhador,
+        })
 
         return resultados
-        
+           
 #partida = Partida()
 #partida.iniciarPartida()
