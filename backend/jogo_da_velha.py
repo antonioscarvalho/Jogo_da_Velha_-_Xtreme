@@ -23,10 +23,13 @@ class Jogo_da_Velha:
         return board
 
     def printTabuleiro(self):
+        tabuleiro_html = ""
         for i in range(3):
-            print("|".join(self.board[i]))
+            tabuleiro_html += "|".join(self.board[i])
             if i < 2:
-                print("------")
+                tabuleiro_html += "<br>------<br>"
+        return tabuleiro_html
+
 
     def validarInput(self, mensagem):
         try:
@@ -34,17 +37,16 @@ class Jogo_da_Velha:
             if 1 <= n <= 3:
                 return n - 1
             else:
-                print("Número precisa estar entre 1 e 3.")
-                return self.validarInput(mensagem)
+                return {"mensagem": "Número precisa estar entre 1 e 3.", "input_valido": False}
         except ValueError:
-            print("Esse número não é válido.")
-            return self.validarInput(mensagem)
+            return {"mensagem": "Esse número não é válido.", "input_valido": False}
 
     def aprovarMovimento(self, i, j):
         if self.board[i][j] == self.branco:
-            return True
+            return {"mensagem": "Movimento aprovado.", "movimento_aprovado": True}
         else:
-            return False
+            return {"mensagem": "A posição informada já está ocupada", "movimento_aprovado": False}
+
 
     def realizarMovimento(self, i, j, jogador):
         self.board[i][j] = self.token[jogador]
@@ -58,7 +60,7 @@ class Jogo_da_Velha:
                 and self.board[i][0] != self.branco
             ):
                 return self.board[i][0]
-
+    
         # Coluna
         for i in range(3):
             if (
@@ -112,8 +114,7 @@ class Jogo_da_Velha:
                 if valor < melhor_valor:
                     melhor_valor = valor
                     melhor_movimento = possibilidade
-
-        return melhor_movimento[0], melhor_movimento[1]
+        return {"melhor_movimento": [melhor_movimento[0], melhor_movimento[1]]}
 
     def getPosicoes(self):
         posicoes = []
@@ -153,13 +154,15 @@ class Jogo_da_Velha:
         ganhador = self.visualizarGanhador()
         jogador = 0
         self.jogo = Jogo_da_Velha()
-        ganhador = self.jogo.visualizarGanhador()
         resultados = []
 
         while not ganhador:
-            print("===================")
-            self.jogo.printTabuleiro()
-            print("===================")
+            tabuleiro_html = self.printTabuleiro()
+            resultados.append({
+                "tabuleiro": tabuleiro_html,
+                "ganhador": ganhador,
+            })
+
             if jogador == 0:
                 i, j = self.jogo.movimentoIA()
             else:
@@ -173,19 +176,9 @@ class Jogo_da_Velha:
                 print("A posição informada já está ocupada")
 
             ganhador = self.jogo.visualizarGanhador()
-            print("===================")
-            self.jogo.printTabuleiro()
-            print("===================")
-            print(f'''
-Ganhador = {ganhador}
-                ''')
-            print("===================")
-            ganhador = self.jogo.visualizarGanhador()
-            resultados.append({
-                "tabuleiro": self.getTabuleiroHTML(),  # Substitua getTabuleiroHTML pela função que você criar para gerar HTML do tabuleiro
-                "ganhador": ganhador,
-        })
+
         return resultados
+
     
 #partida = Partida()
 #partida.iniciarPartida()
