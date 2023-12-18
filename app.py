@@ -61,33 +61,27 @@ def cadastrar_usuario_route():
 
 @app.route('/iniciarPartida', method='POST')
 def iniciarPartida_route():
-    global partida
     resultados = partida.iniciarPartida()
     return template("iniciarPartida.tpl", resultados=resultados)
 
 @app.route('/criarTabuleiro', method='POST')
 def criarTabuleiro_route():
-    global criarTabuleiro
     return template("criarTabuleiro", criarTabuleiro=criarTabuleiro)
 
 @app.route('/printTabuleiro', method='POST')
 def printTabuleiro_route():
-    global printTabuleiro
     return template("printTabuleiro", printTabuleiro=printTabuleiro)
 
 @app.route('/validarInput', method='POST')
 def validarInput_route():
-    global validarInput
     return template("validarInput", validarInput=validarInput)
 
 @app.route('/aprovarMovimento', method='POST')
 def aprovarMovimento_route():
-    global aprovarMovimento
     return template("aprovarMovimento", aprovarMovimento=aprovarMovimento)
 
 @app.route('/realizarMovimento', method='POST')
 def realizarMovimento_route():
-    global partida
     i = request.forms.get('i')
     j = request.forms.get('j')
     jogador = request.forms.get('jogador')
@@ -96,27 +90,22 @@ def realizarMovimento_route():
 
 @app.route('/visualizarGanhador', method='POST')
 def visualizarGanhador_route():
-    global visualizarGanhador
     return template("visualizarGanhador", visualizarGanhador=visualizarGanhador)
 
 @app.route('/movimentoIA', method='POST')
 def movimentoIA_route():
-    global movimentoIA
     return template("movimentoIA", movimentoIA=movimentoIA)
 
 @app.route('/getPosicoes', method='POST')
 def getPosicoes_route():
-    global getPosicoes
     return template("getPosicoes", getPosicoes=getPosicoes)
 
 @app.route('/xtreme', method='POST')
 def xtreme_route():
-    global xtreme
     return template("xtreme", xtreme=xtreme)
 
 @app.route('/introducaoJogo', method='POST')
 def introducaoJogo_route():
-    global partida
     resultados = partida.jogo.introducaoJogo()
     return template("introducaoJogo.tpl", resultados=resultados)
 
