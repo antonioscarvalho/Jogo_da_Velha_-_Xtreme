@@ -39,7 +39,7 @@ O projeto está dividido em três principais componentes:
 
 2. **Executar o Aplicativo:**
    ```bash
-   python main.py
+   python app.py
    ```
    O servidor web será iniciado e a aplicação estará acessível em `http://localhost:8080`.
 
