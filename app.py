@@ -116,8 +116,9 @@ def xtreme_route():
 
 @app.route('/introducaoJogo', method='POST')
 def introducaoJogo_route():
-    global introducaoJogo
-    return template("introducaoJogo", introducaoJogo=introducaoJogo)
+    global partida
+    resultados = partida.jogo.introducaoJogo()
+    return template("introducaoJogo.tpl", resultados=resultados)
 
 @app.route('/jogar', method='POST')
 def jogar_route():

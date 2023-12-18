@@ -154,6 +154,8 @@ class Jogo_da_Velha:
         jogador = 0
         self.jogo = Jogo_da_Velha()
         ganhador = self.jogo.visualizarGanhador()
+        resultados = []
+
         while not ganhador:
             print("===================")
             self.jogo.printTabuleiro()
@@ -178,5 +180,12 @@ class Jogo_da_Velha:
 Ganhador = {ganhador}
                 ''')
             print("===================")
-partida = Partida()
-partida.iniciarPartida()
+            ganhador = self.jogo.visualizarGanhador()
+            resultados.append({
+                "tabuleiro": self.getTabuleiroHTML(),  # Substitua getTabuleiroHTML pela função que você criar para gerar HTML do tabuleiro
+                "ganhador": ganhador,
+        })
+        return resultados
+    
+#partida = Partida()
+#partida.iniciarPartida()
