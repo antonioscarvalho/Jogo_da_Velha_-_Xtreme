@@ -106,7 +106,16 @@ def xtreme_route():
 
 @app.route('/introducaoJogo', method='POST')
 def introducaoJogo_route():
-    resultados = partida.jogo.introducaoJogo()
+    global partida
+    jogador = request.forms.get('jogador')
+    i = request.forms.get('i')
+    j = request.forms.get('j')
+    
+    jogador = int(jogador)
+    i = int(i)
+    j = int(j)
+
+    resultados = partida.jogo.introducaoJogo(jogador, i, j)
     return template("introducaoJogo.tpl", resultados=resultados)
 
 @app.route('/jogar', method='POST')
