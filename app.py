@@ -62,8 +62,8 @@ def cadastrar_usuario_route():
 @app.route('/iniciarPartida', method='POST')
 def iniciarPartida_route():
     global partida
-    partida.iniciarPartida()
-    return template("iniciarPartida.tpl")
+    resultados = partida.iniciarPartida()
+    return template("iniciarPartida.tpl", resultados=resultados)
 
 @app.route('/criarTabuleiro', method='POST')
 def criarTabuleiro_route():

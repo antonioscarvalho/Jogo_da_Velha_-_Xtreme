@@ -164,21 +164,36 @@ class Jogo_da_Velha:
             })
 
             if jogador == 0:
-                i, j = self.jogo.movimentoIA()
+                movimento_ia = self.jogo.movimentoIA()
+                i, j = movimento_ia["melhor_movimento"]
             else:
-                i = self.jogo.validarInput("Digite a linha: ")
-                j = self.jogo.validarInput("Digite a coluna: ")
+                i_input = self.jogo.validarInput("Digite a linha: ")
+                j_input = self.jogo.validarInput("Digite a coluna: ")
 
-            if self.jogo.aprovarMovimento(i, j):
+                if i_input["input_valido"] and j_input["input_valido"]:
+                    i, j = i_input["input"], j_input["input"]
+                else:
+                    resultados.append({
+                        "mensagem": "Entrada inválida. Por favor, insira números válidos.",
+                        "ganhador": "EMPATE",
+                        "tabuleiro": self.printTabuleiro(),
+                    })
+                    return resultados
+
+            if self.jogo.aprovarMovimento(i, j)["movimento_aprovado"]:
                 self.jogo.realizarMovimento(i, j, jogador)
                 jogador = (jogador + 1) % 2
             else:
-                print("A posição informada já está ocupada")
+                resultados.append({
+                    "mensagem": "A posição informada já está ocupada",
+                    "ganhador": "EMPATE",
+                    "tabuleiro": self.printTabuleiro(),
+                })
+                return resultados
 
             ganhador = self.jogo.visualizarGanhador()
 
         return resultados
-
     
 #partida = Partida()
 #partida.iniciarPartida()
