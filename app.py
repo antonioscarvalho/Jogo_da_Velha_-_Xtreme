@@ -2,129 +2,67 @@ import bottle
 from bottle import template, request, redirect
 
 from backend.jogo_da_velha import Partida, Jogo_da_Velha
-from database.db import validar_usuario, cadastrar_usuario, historico_partidas
+from database.db import validar_usuario, cadastrar_usuario
 
 app = bottle.Bottle()
 partida = Partida()
-
-if __name__ == '__main__':
-    app.run(debug=True)
+historico_partidas = []
 
 @app.route('/')
-def entrar():
+def index():
     return template('frontend/desktop_1.tpl')
 
-@app.route('/desktop_2')
+
+@app.route('/desktop_2', method=['GET', 'POST'])
 def desktop_2():
-    return template('frontend/desktop_2.tpl')
+    resultado_validacao = None
+    if request.method == 'POST':
+        resultado_validacao = validar_usuario(request.forms.get('usuario'), request.forms.get('senha'))
 
-@app.route('/desktop_3')
+        if resultado_validacao == "Usuário válido.":
+            return redirect('/desktop_4')
+
+    return template('desktop_2.html', resultado_validacao=resultado_validacao)
+
+@app.route('/desktop_3', method=['GET', 'POST'])
 def desktop_3():
-    return template('frontend/desktop_3.tpl')
+    if request.method == 'POST':
+        nome_usuario = request.forms.get('usuario')
+        senha_usuario = request.forms.get('senha')
+        cadastrar_usuario(nome_usuario, senha_usuario)
+        return redirect('/desktop_4')
 
-@app.route('/desktop_4')
-def desktop_4():
-    return template('frontend/desktop_4.tpl')
+    return template('desktop_3.html')
+
+@app.route('/desktop_4', method=['GET', 'POST'])
+def introducaoJogo_route():
+    global partida
+    if request.method == 'POST':
+        jogador = int(request.forms.get('jogador'))
+        i = int(request.forms.get('i'))
+        j = int(request.forms.get('j'))
+
+        resultados = partida.jogo.introducaoJogo(jogador, i, j)
+        return template("introducaoJogo.tpl", resultados=resultados)
 
 @app.route('/desktop_5')
-def desktop_5():
-    return template('frontend/desktop_5.tpl')
-
-@app.route('/desktop_6')
-def desktop_6():
-    return template('frontend/desktop_6.tpl')
-
-@app.route('/desktop_9')
-def desktop_9():
-    return template('frontend/desktop_9.tpl')
-
-@app.route('/validar_usuario', method='POST')
-def validar_usuario_route():
-    resultado_validacao = ''
-    nome_usuario = request.forms.get('usuario')
-    senha_usuario = request.forms.get('senha')
-    resultado_validacao = validar_usuario(nome_usuario, senha_usuario)
-    
-    if resultado_validacao == "Usuário válido.":
-        redirect('/desktop_4')
-    
-    return template('frontend/desktop_2.tpl', resultado_validacao=resultado_validacao)
-
-@app.route('/cadastrar_usuario', method='POST')
-def cadastrar_usuario_route():
-    nome_usuario = request.forms.get('usuario')
-    senha_usuario = request.forms.get('senha')
-    cadastrar_usuario(nome_usuario, senha_usuario)
-    redirect('/desktop_4')
-
-#functions
-
-@app.route('/iniciarPartida', method='POST')
 def iniciarPartida_route():
     resultados = partida.iniciarPartida()
     return template("iniciarPartida.tpl", resultados=resultados)
 
-@app.route('/criarTabuleiro', method='POST')
-def criarTabuleiro_route():
-    return template("criarTabuleiro", criarTabuleiro=criarTabuleiro)
-
-@app.route('/printTabuleiro', method='POST')
-def printTabuleiro_route():
-    return template("printTabuleiro", printTabuleiro=printTabuleiro)
-
-@app.route('/validarInput', method='POST')
-def validarInput_route():
-    return template("validarInput", validarInput=validarInput)
-
-@app.route('/aprovarMovimento', method='POST')
-def aprovarMovimento_route():
-    return template("aprovarMovimento", aprovarMovimento=aprovarMovimento)
-
-@app.route('/realizarMovimento', method='POST')
+@app.route('/realizarMovimento', method=['POST'])
 def realizarMovimento_route():
-    i = request.forms.get('i')
-    j = request.forms.get('j')
-    jogador = request.forms.get('jogador')
-    partida.jogo.realizarMovimento(int(i), int(j), int(jogador))
+    i = int(request.forms.get('i'))
+    j = int(request.forms.get('j'))
+    jogador = int(request.forms.get('jogador'))
+    partida.jogo.realizarMovimento(i, j, jogador)
     return template("realizarMovimento.tpl")
 
-@app.route('/visualizarGanhador', method='POST')
+@app.route('/desktop_6')
 def visualizarGanhador_route():
-    return template("visualizarGanhador", visualizarGanhador=visualizarGanhador)
+    return template("visualizarGanhador.tpl", visualizarGanhador=visualizarGanhador)
 
-@app.route('/movimentoIA', method='POST')
-def movimentoIA_route():
-    return template("movimentoIA", movimentoIA=movimentoIA)
-
-@app.route('/getPosicoes', method='POST')
-def getPosicoes_route():
-    return template("getPosicoes", getPosicoes=getPosicoes)
-
-@app.route('/xtreme', method='POST')
-def xtreme_route():
-    return template("xtreme", xtreme=xtreme)
-
-@app.route('/introducaoJogo', method='POST')
-def introducaoJogo_route():
-    global partida
-    jogador = request.forms.get('jogador')
-    i = request.forms.get('i')
-    j = request.forms.get('j')
-    
-    jogador = int(jogador)
-    i = int(i)
-    j = int(j)
-
-    resultados = partida.jogo.introducaoJogo(jogador, i, j)
-    return template("introducaoJogo.tpl", resultados=resultados)
-
-@app.route('/jogar', method='POST')
-def jogar_route():
-    global partida
-    partida.iniciarPartida()
-    return template('frontend/desktop_5.tpl')
-
-@app.route('/resultado', method='GET')
+@app.route('/resultado')
 def resultado_route():
     global historico_partidas
     if historico_partidas:
@@ -132,13 +70,12 @@ def resultado_route():
     else:
         resultado_ultima_partida = "Nenhuma partida foi jogada ainda."
 
-    return template("resultado", resultado=resultado_ultima_partida)
+    return template("resultado.tpl", resultado=resultado_ultima_partida)
 
-@app.route('/historico', method='POST')
+@app.route('/historico')
 def historico_route():
     global historico_partidas
-    return template("historico", historico=historico_partidas)
+    return template("historico.tpl", historico=historico_partidas)
 
 if __name__ == '__main__':
     app.run(host='localhost', port=8080, debug=True)
-
