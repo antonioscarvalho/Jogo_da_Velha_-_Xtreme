@@ -2,6 +2,9 @@
 
 ## Projeto Final de Orientação a Objetos - UnB
 
+## Apresentação do Projeto
+[Apresentação do trabalho](https://www.youtube.com/watch?v=UDn3MKWBs7w)
+
 ### Descrição
 
 Este projeto consiste em um jogo da velha implementado em Python, dividido em componentes de backend, banco de dados e frontend. A aplicação utiliza o framework Bottle para a parte web e os templates de Jinja2 para renderizar as páginas HTML.
@@ -62,3 +65,14 @@ O projeto foi concluído, alcançando as seguintes etapas:
 3. Faça suas jogadas clicando nas células do tabuleiro.
 4. A IA "Xtreme" responderá automaticamente.
 5. Continue o jogo ou reinicie conforme desejar.
+
+## Autores
+
+- [Antônio Amadeu de Sousa Carvalho](https://github.com/antonioscarvalho)
+  - Matrícula: 222006552
+
+- [Bruno de Oliveira](https://github.com/BrunoOLiveirax)
+  - Matrícula: 180062778
+
+- [Jéssica Eveline Saraiva Araújo](https://github.com/xzxjesse)
+  - Matrícula: 221022319
