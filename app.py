@@ -1,95 +1,55 @@
-import bottle
-from bottle import template, request, redirect
-
-from backend.jogo_da_velha import Partida, Jogo_da_Velha
+from bottle import Bottle, run, template, request, redirect
 from database.db import validar_usuario, cadastrar_usuario
 
-app = bottle.Bottle()
-partida = Partida()
-historico_partidas = []
+app = Bottle()
 
 @app.route('/')
-def index():
-    return template('frontend/index.tpl')
+def entrar():
+    return template('frontend/desktop_1.tpl')
 
-
-@app.route('/entrar', method=['GET', 'POST'])
+@app.route('/desktop_2', method='GET')
 def desktop_2():
-    resultado_validacao = None
-    if request.method == 'POST':
-        resultado_validacao = validar_usuario(request.forms.get('usuario'), request.forms.get('senha'))
+    return template('frontend/desktop_2.tpl', resultado_validacao='')
 
-        if resultado_validacao == "Usuário válido.":
-            return redirect('/jogar')
-
-    return template('frontend/entrar.tpl', resultado_validacao=resultado_validacao)
-
-@app.route('/cadastrar', method=['GET', 'POST'])
+@app.route('/desktop_3', method='GET')
 def desktop_3():
-    if request.method == 'POST':
-        nome_usuario = request.forms.get('usuario')
-        senha_usuario = request.forms.get('senha')
-        cadastrar_usuario(nome_usuario, senha_usuario)
-        return redirect('/jogar')
+    return template('frontend/desktop_3.tpl')
 
-    return template('frontend/cadastrar.tpl')
+@app.route('/desktop_4', method='GET')
+def desktop_4():
+    return template('frontend/desktop_4.tpl')
 
-@app.route('/jogar', method=['GET', 'POST'])
-def introducaoJogo_route():
-    global partida
-    if request.method == 'POST':
-        jogador = int(request.forms.get('jogador'))
-        i = int(request.forms.get('i'))
-        j = int(request.forms.get('j'))
+@app.route('/desktop_5', method='GET')
+def desktop_5():
+    return template('frontend/desktop_5.tpl')
 
-        resultados = partida.jogo.introducaoJogo(jogador, i, j)
-        return template("jogar.tpl", resultados=resultados)
+@app.route('/desktop_6', method='GET')
+def desktop_6():
+    return template('frontend/desktop_6.tpl')
 
-@app.route('/partida')
-def iniciarPartida_route():
-    resultados = partida.iniciarPartida()
-    return template("iniciarPartida.tpl", resultados=resultados)
+@app.route('/desktop_9', method='GET')
+def desktop_9():
+    return template('frontend/desktop_9.tpl')
 
-@app.route('/partida/criarTabuleiro')
-def criarTabuleiro_route():
-    return template("criarTabuleiro", criarTabuleiro=criarTabuleiro)
+@app.route('/validar_usuario', method='POST')
+def validar_usuario_route():
+    resultado_validacao = validar_usuario(request.forms.get('usuario'), request.forms.get('senha'))
+    return template('frontend/desktop_2.tpl', resultado_validacao=resultado_validacao)
 
-@app.route('/partida/printTabuleiro')
-def printTabuleiro_route():
-    return template("printTabuleiro", printTabuleiro=printTabuleiro)
+@app.route('/cadastrar_usuario', method='POST')
+def cadastrar_usuario_route():
+    nome_usuario = request.forms.get('usuario')
+    senha_usuario = request.forms.get('senha')
+    cadastrar_usuario(nome_usuario, senha_usuario)
+    redirect('/desktop_4')
 
-@app.route('/partida/validarInput')
-def validarInput_route():
-    return template("validarInput", validarInput=validarInput)
+@app.route('/jogar', method='POST')
+def jogar_route():
+    partida = Partida()
+    partida.iniciarPartida()
+    redirect('/desktop_5')
 
-@app.route('/partida/aprovarMovimento')
-def aprovarMovimento_route():
-    return template("aprovarMovimento", aprovarMovimento=aprovarMovimento)
-
-@app.route('/partida/realizarMovimento', method='POST')
-def realizarMovimento_route():
-    i = int(request.forms.get('i'))
-    j = int(request.forms.get('j'))
-    jogador = int(request.forms.get('jogador'))
-    partida.jogo.realizarMovimento(i, j, jogador)
-    return template("realizarMovimento.tpl")
-
-@app.route('/partida/movimentoIA')
-def movimentoIA_route():
-    return template("movimentoIA", movimentoIA=movimentoIA)
-
-@app.route('/partida/getPosicoes')
-def getPosicoes_route():
-    return template("getPosicoes", getPosicoes=getPosicoes)
-
-@app.route('/partida/xtreme')
-def xtreme_route():
-    return template("xtreme", xtreme=xtreme)
-
-@app.route('/resultado')
-def visualizarGanhador_route():
-    return template("visualizarGanhador.tpl", visualizarGanhador=visualizarGanhador)
-
+@app.route('/resultado', method='GET')
 def resultado_route():
     global historico_partidas
     if historico_partidas:
@@ -97,12 +57,12 @@ def resultado_route():
     else:
         resultado_ultima_partida = "Nenhuma partida foi jogada ainda."
 
-    return template("resultado.tpl", resultado=resultado_ultima_partida)
+    return template("resultado", resultado=resultado_ultima_partida)
 
-@app.route('/historico')
+@app.route('/historico', method='GET')
 def historico_route():
     global historico_partidas
-    return template("historico.tpl", historico=historico_partidas)
+    return template("historico", historico=historico_partidas)
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=8080, debug=True)
+    run(app, host='localhost', port=8080, debug=True)
