@@ -2,19 +2,19 @@
 
 ## Projeto Final de Orientação a Objetos - UnB
 
-## Descrição
+### Descrição
 
-Este projeto é um jogo da velha implementado em Python, dividido em componentes de backend, banco de dados e frontend. A aplicação utiliza o framework Bottle para a parte web e os templates de Jinja2 para renderizar as páginas HTML.
+Este projeto consiste em um jogo da velha implementado em Python, dividido em componentes de backend, banco de dados e frontend. A aplicação utiliza o framework Bottle para a parte web e os templates de Jinja2 para renderizar as páginas HTML.
 
-## Funcionalidades
+### Objetivo
 
 - **Jogo da Velha Interativo:** Os jogadores podem jogar o clássico jogo da velha contra um oponente inteligente chamado "Xtreme".
-  
+
 - **IA Xtreme:** A inteligência artificial "Xtreme" é implementada para proporcionar um desafio ao jogador. Ela faz escolhas estratégicas para tentar vencer ou bloquear o jogador humano.
 
 - **Persistência de Dados:** O estado do jogo é salvo em um banco de dados JSON, permitindo que os jogadores continuem o jogo depois de fechar e reabrir a aplicação.
 
-## Estrutura do Projeto
+### Estrutura do Projeto
 
 O projeto está dividido em três principais componentes:
 
@@ -30,7 +30,19 @@ O projeto está dividido em três principais componentes:
    - As páginas web são renderizadas usando templates Jinja2.
    - Interface simples para o jogador interagir com o jogo.
 
-## Instalação e Execução
+### Conclusão do Projeto
+
+O projeto foi concluído, alcançando as seguintes etapas:
+
+- **HTML e CSS Funcionais:** As páginas web foram desenvolvidas com HTML e CSS, proporcionando uma interface amigável, embora a lógica do jogo ainda não esteja implementada.
+
+- **Banco de Dados Independente:** O banco de dados foi implementado e realiza o cadastro por meio do `app.py` e `desktop_3.tpl`.
+
+- **Jogo em Python no Terminal:** A lógica do jogo está funcional no terminal, permitindo a interação do jogador com o jogo.
+
+- **Rotas no app.py:** As rotas no `app.py` estão configuradas, mas a implementação do jogo web e a verificação do usuário ainda não funcionam.
+
+### Instalação e Execução
 
 1. **Instalar Dependências:**
    ```bash
@@ -41,9 +53,9 @@ O projeto está dividido em três principais componentes:
    ```bash
    python app.py
    ```
-   O servidor web será iniciado e a aplicação estará acessível em `http://localhost:8080`.
+   O servidor web será iniciado, e a aplicação estará acessível em `http://localhost:8080`.
 
-## Como Jogar
+### Como Jogar
 
 1. Acesse a aplicação no navegador.
 2. Escolha entre jogar contra a IA "Xtreme" ou com outro jogador.
