@@ -22,7 +22,7 @@
         <button type="submit">ENTRAR</button>
     </form>
 
-    <a class="acesso" href="desktop_3.tpl">Cadastrar</a>
+    <a class="acesso" href="desktop_3">Cadastrar</a>
 </body>
 
 <footer>

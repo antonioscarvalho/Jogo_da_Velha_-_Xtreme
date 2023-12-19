@@ -18,10 +18,10 @@
         <p>A entidade Xtreme vai ser sua adversária sempre.</p>
     </div>
     <p>Ainda quer jogar? HAHAHAHAH</p>
-    <a class="jogar" href="desktop_5.html">
+    <a class="jogar" href="desktop_5">
         <button>INICIAR PARTIDA</button>
     </a>
-    <a class="acesso" href="desktop_9.html">Visualizar histórico de placar</a>
+    <a class="acesso" href="desktop_9">Visualizar histórico de placar</a>
 </body>
 
 <footer>

@@ -36,12 +36,15 @@ def validar_usuario_route():
     resultado_validacao = validar_usuario(request.forms.get('usuario'), request.forms.get('senha'))
     return template('frontend/desktop_2.tpl', resultado_validacao=resultado_validacao)
 
-@app.route('/cadastrar_usuario', method='POST')
+@app.route('/cadastrar_usuario', method=['GET', 'POST'])
 def cadastrar_usuario_route():
-    nome_usuario = request.forms.get('usuario')
-    senha_usuario = request.forms.get('senha')
-    cadastrar_usuario(nome_usuario, senha_usuario)
-    redirect('/desktop_4')
+    if request.method == 'POST':
+        nome_usuario = request.forms.get('usuario')
+        senha_usuario = request.forms.get('senha')
+        cadastrar_usuario(nome_usuario, senha_usuario)
+        redirect('/desktop_4')
+    else:
+        return template('frontend/desktop_3.tpl')
 
 @app.route('/jogar', method='POST')
 def jogar_route():

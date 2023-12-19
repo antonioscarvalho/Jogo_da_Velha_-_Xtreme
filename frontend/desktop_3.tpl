@@ -20,7 +20,7 @@
 
         <button type="submit">CADASTRAR</button>
     </form>
-    <a class="acesso" href="desktop_2.html">Entrar</a>
+    <a class="acesso" href="desktop_2">Entrar</a>
 </body>
 
 <footer>

@@ -11,7 +11,7 @@
 <body>
     <h1 class="titulo">XTREME</h1>
     
-    <a class="acesso" href="desktop_9.html">Visualizar histórico de placar</a>
+    <a class="acesso" href="desktop_9">Visualizar histórico de placar</a>
 </body>
 
 <footer>

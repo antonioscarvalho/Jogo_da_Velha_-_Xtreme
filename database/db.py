@@ -74,10 +74,8 @@ def validar_usuario(nome=None, senha=None):
 
     return "Usuário inválido."
 
-def cadastrar_usuario():
-    nome_usuario = input("Digite o nome do usuário: ")
-    senha_usuario = input("Digite a senha do usuário: ")
-    adicionar_usuario(nome_usuario, senha_usuario)
+def cadastrar_usuario(nome, senha):
+    adicionar_usuario(nome, senha)
     salvar_banco_de_dados()
 
 def mostrar_usuarios_cadastrados():
